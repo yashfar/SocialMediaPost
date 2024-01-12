@@ -1,0 +1,24 @@
+<div class="px-[80px] py-5 w-full h-screen bg-black flex-col items-center justify-center absolute top-0 left-0 "  [ngClass]="{'active': show, 'notActive': !show}">
+    <div class=" absolute top-20 right-20">
+        <button (click)="onLogout()" class="bg-black text-white dark:text-white hover:text-white hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-50 focus:outline-none dark:focus:ring-gray-800">Log out</button>
+    </div>
+    <form  (ngSubmit)="onSubmit()" class="p-5 shadow flex flex-col gap-y-5 max-w-[500px] w-full bg-white rounded-xl " [formGroup]="ProfileForm" >
+        <h2 class="py-2 text-center ">Profile Forms </h2>
+        <div>
+          <label class="text-base font-smibold" for="name">Name</label>
+          <input class="input input-bordered w-full" type="text" id="name" name="name" formControlName="name">
+        </div>
+        <div>
+          <label class="text-base font-smibold" for="surname">Surname</label>
+          <input class="input input-bordered w-full" type="text" id="surname" name="surname" formControlName="surname">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-base font-smibold" for="description">Description</label>
+          <textarea class="textarea textarea-bordered" placeholder="Bio" id="description" name="description" formControlName="description"></textarea>
+        </div>
+        <div class="">
+          <button class="btn btn-primary " disabled="ReactiveForm.valid" type="submit" [disabled]="!ProfileForm.valid" >Submit</button>
+        </div>
+  
+    </form>
+</div>

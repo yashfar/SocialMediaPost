@@ -1,0 +1,8 @@
+<!-- <input type="file" (change)="fileChangeHandler($event)">
+<img [src]="output?.base64" alt=""> -->
+<label class="text-base font-smibold" for="uploadImage">
+    <input class="file-input file-input-bordered file-input-md w-full max-w-xs hidden" type="file" id="uploadImage"  (change)="fileChangeHandler($event)" accept="image/*" >
+     <div  class="btn btn-circle fixed bottom-10 right-10 " id="post-button">
+         <mat-icon>add</mat-icon>
+     </div>
+ </label>

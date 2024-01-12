@@ -1,0 +1,29 @@
+<div class="p-5 max-w-full w-[540px]">
+    <div class="header">
+        <h1>Create Post</h1> 
+    </div>
+    <div class="create-post-content w-full">
+        <form  (ngSubmit)="onPostClick()" class="p-5 shadow flex flex-col gap-y-5 max-w-[500px] w-full bg-white rounded-xl " [formGroup]="CreatePostForm" >
+            <!-- <div>
+                <label class="text-base font-smibold" for="name">Name</label>
+                <input class="input input-bordered w-full" type="text" id="name" name="name" formControlName="name">
+            </div> -->
+            <!-- <input type="file" type="image/*" (change)="onselectedimage($event)"> -->
+            <div>
+                <app-image-editor></app-image-editor>
+            </div>
+            <div class="w-full max-h-[400px] h-full  ">
+                <div class="w-full h-full flex flex-col justify-center items-center">
+                    <img [src]="receivedImage" alt="Uploaded Image" class="rounded-xl" style="max-width: 100%; max-height: 400px;">
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <!-- <label class="text-base font-smibold" for="description">Description</label> -->
+                <textarea class="textarea textarea-bordered" placeholder="Bio" id="description" name="description" formControlName="description"></textarea>
+            </div>
+            <div class="">
+                <button class="btn btn-primary " disabled="ReactiveForm.valid" type="submit" [disabled]="!CreatePostForm.valid" >Post</button>
+            </div>
+        </form>
+    </div>
+</div>

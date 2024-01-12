@@ -1,0 +1,54 @@
+<div id="authenticator">
+    <mat-card  id="authenticator-content" >
+        <mat-card-header>
+            <mat-card-title *ngIf="state==='Login'">Login</mat-card-title>
+            <mat-card-title *ngIf="state==='Register'">Register</mat-card-title>
+            <mat-card-title *ngIf="state==='ForgetPassword'">Forget Password</mat-card-title>
+        </mat-card-header>
+        <form  (ngSubmit)="onSubmit()" class="p-5  flex flex-col gap-y-5" [formGroup]="LoginForm" *ngIf="state==='Login'" >
+            <div>
+              <label class="text-base font-smibold" for="email">E-Mail</label>
+              <input class="input input-bordered w-full" type="email" id="email" name="email" formControlName="email"  >
+            </div>
+            <div>
+              <label class="text-base font-smibold" for="password">Password</label>
+              <input class="input input-bordered w-full" type="password" id="password" name="password" formControlName="password"  >
+            </div>
+            <div class=" flex gap-x-3 lg:gap-x-4 justify-end  pt-5">
+              <button class="btn btn-primary " disabled="ReactiveForm.valid" type="submit" [disabled]="!LoginForm.valid" >Submit</button>
+            </div>
+        </form>
+        <form  (ngSubmit)="onRegisterClick()" class="p-5  flex flex-col gap-y-5" [formGroup]="RegisterForm"   *ngIf="state==='Register'">
+          <div>
+            <label class="text-base font-smibold" for="email">E-Mail</label>
+            <input class="input input-bordered w-full" type="email" id="email" name="email" formControlName="email"  >
+          </div>
+          <div>
+            <label class="text-base font-smibold" for="password">Password</label>
+            <input class="input input-bordered w-full" type="password" id="password" name="password" formControlName="password"  >
+          </div>
+          <div>
+            <label class="text-base font-smibold" for="confirm-password">Confirm Password</label>
+            <input class="input input-bordered w-full" type="password" id="confirm-password" name="confirm-password" formControlName="confirmPassword"  >
+          </div>
+          <div class=" flex gap-x-3 lg:gap-x-4 justify-end  pt-5">
+            <button class="btn btn-primary " disabled="ReactiveForm.valid" type="submit" [disabled]="!RegisterForm.valid" >Create</button>
+          </div>
+      </form>
+      <form  (ngSubmit)="onResetClick()" class="p-5  flex flex-col gap-y-5" [formGroup]="ResetForm"  *ngIf="state==='ForgetPassword'" >
+        <div>
+          <label class="text-base font-smibold" for="email">E-Mail</label>
+          <input class="input input-bordered w-full" type="email" id="email" name="email" formControlName="email"  >
+        </div>
+        <div class=" flex gap-x-3 lg:gap-x-4 justify-end  pt-5">
+          <button class="btn btn-primary " disabled="ReactiveForm.valid" type="submit" [disabled]="!ResetForm.valid" >Reset</button>
+        </div>
+      </form>
+      <div class="flex gap-x-5 justify-center p-y-3">
+        <button   type="submit" (click)="onLoginClick()">Login</button>
+        <button   type="submit" (click)="onForgotPasswordClick()">Forgot Password</button>
+        <button   type="submit" (click)="onCreateAccountClick()">Create an Account</button>
+      </div>
+          
+    </mat-card >
+</div>
