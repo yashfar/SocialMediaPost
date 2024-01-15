@@ -7,9 +7,10 @@ import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
   styleUrls: ['./image-editor.component.css']
 })
 export class ImageEditorComponent {
-  @Output() imageUploaded = new EventEmitter<any>();
-  output?: NgxCroppedEvent;
-
+  // @Output() imageUploaded = new EventEmitter<any>();
+  @Output() imageUploaded = new EventEmitter<{ imageFile: File, imageBase64: string }>();
+  output?: string;
+  formatedImage:File;
   constructor(private service: NgxPhotoEditorService) {}
 
   fileChangeHandler($event: Event) :void{
@@ -17,8 +18,17 @@ export class ImageEditorComponent {
       aspectRatio: 4 / 3,
       autoCropArea: 1
     }).subscribe(data => {
-      this.output = data;
-      this.imageUploaded.emit(this.output?.base64);
+      this.output = data.base64;
+      this.formatedImage = data.file;
+      let fileReader = new FileReader();
+        fileReader.readAsDataURL(this.formatedImage);
+        fileReader.addEventListener(
+        "loadend",
+        ev => {
+          let readableString = fileReader.result.toString();
+        }
+      );
+      this.imageUploaded.emit({ imageFile:this.formatedImage, imageBase64:this.output });
     });
   }
 }

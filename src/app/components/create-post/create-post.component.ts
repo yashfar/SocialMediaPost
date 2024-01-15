@@ -16,7 +16,7 @@ import { FirebaseTSApp } from 'firebasets/firebasetsApp/firebaseTSApp';
 })
 export class CreatePostComponent implements AfterViewInit , OnInit{
   receivedImage: File;
-  selectedImageFile: File;
+  formatedImage: string;
   // imagePreview: string | ArrayBuffer | null = null;
   
   auth = new FirebaseTSAuth();
@@ -29,7 +29,8 @@ export class CreatePostComponent implements AfterViewInit , OnInit{
 
   CreatePostForm:FormGroup;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any ,  private ng2ImgMax: Ng2ImgMaxService , private dialog: MatDialogRef<CreatePostComponent>) {
-    this.receivedImage = data?.image;
+    this.receivedImage = data?.image.imageBase64;
+    this.formatedImage = data?.image.imageFile
   }
   ngOnInit(): void {
     this.CreatePostForm = new FormGroup({
@@ -58,7 +59,7 @@ export class CreatePostComponent implements AfterViewInit , OnInit{
           uploadName: "upload Image Post",
           path: ["Posts", postId, "image"],
           data: {
-            data:this.receivedImage
+            data:this.formatedImage
           },
           onComplete: (downloadUrl) => {
             this.firestore.create(
@@ -94,11 +95,4 @@ export class CreatePostComponent implements AfterViewInit , OnInit{
         }
       );
   }
-
-
-
-  onselectedimage(photoSelector: HTMLInputElement){
-    this.selectedImageFile = photoSelector.files[0];
-  }
-
 }

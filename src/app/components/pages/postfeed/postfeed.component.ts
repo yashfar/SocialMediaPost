@@ -22,7 +22,7 @@ export class PostfeedComponent implements OnInit{
   ngOnInit(): void {
     this.getPosts();
   }
-  openDialogWithData(imageData: File): void {
+  openDialogWithData(imageData: any): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       data: { image: imageData },
     });

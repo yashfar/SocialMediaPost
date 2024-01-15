@@ -1,21 +1,26 @@
-<div class="max-w-sm rounded overflow-hidden shadow-lg">
-    <div class="h-[40px] px-6 py-4">
-        <h1 class="font-bold">Name</h1>
+<div class="max-w-full w-[400px] rounded overflow-hidden ">
+    <div class="px-2 pt-3 pb-2">
+        <h1 class="font-bold !mb-0">Name</h1>
     </div>
-    <div class="relative min-h-[300px]">
-        <img class="w-full" src="{{postData?.imageUrl}}" alt="Sunset in the mountains">
-        <div class="flex git-x-3 justify-start absolute left-0 bottom-0 px-3 py-4">
-            <mat-icon>favorite_border</mat-icon>
-            <mat-icon>chat_bubble_outline</mat-icon>
-            <mat-icon>save</mat-icon>
-        </div>
+    <div class="relative min-h-[300px] max-h-[400px] h-full border border-[#f1f1f1] rounded-lg ">
+        <img class="w-full rounded-lg" src="{{postData.imageUrl}}" alt="Sunset in the mountains">
     </div>
-    <div class="px-6 py-4">
-      <p class="text-gray-700 text-base">
+    <div class="flex justify-between px-1 pt-3 text-gray-400">
+      <div class="flex gap-x-2 justify-start  ">
+          <mat-icon class="text-xl">favorite_border</mat-icon>
+          <mat-icon class="text-xl">chat_bubble_outline</mat-icon>
+          <mat-icon class="text-xl">reply</mat-icon>
+      </div>
+      <div>
+        <mat-icon class="text-xl">save</mat-icon>
+      </div>
+    </div>
+    <div class="px-2 py-3 pt-0">
+      <p class="text-gray-700 text-sm text-gray-400">
         {{postData?.comment}}
       </p>
     </div>
-    <div class="px-6 pt-4 pb-2">
+    <div class="px-2 py-3 pt-0">
       <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
       <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
       <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
