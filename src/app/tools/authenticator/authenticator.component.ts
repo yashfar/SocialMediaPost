@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-authenticator',
@@ -17,7 +18,7 @@ export class AuthenticatorComponent implements OnInit {
 
   
 
-  constructor( private loginSheet: MatBottomSheet) { 
+  constructor( private loginSheet: MatBottomSheet , private authService:AuthService) { 
     // this.firebasetsAuth = new FirebaseTSAuth();
   }
 
@@ -39,75 +40,15 @@ export class AuthenticatorComponent implements OnInit {
   }
 
   onSubmit(){
-    let email = this.LoginForm.value.email;
-    let password = this.LoginForm.value.password;
-    if(this.isNotEmpty(email) && 
-    this.isNotEmpty(password)){
-      this.firebasetsAuth.signInWith(
-        {
-            email: email,
-            password: password,
-            onComplete: (uc) => {
-              this.loginSheet.dismiss();
-            },
-            onFail: (err) => {
-                alert(err);
-            }
-        }
-     );
-    }
+      this.authService.Login(this.LoginForm)
   }
   onRegisterClick(){
-    let email = this.RegisterForm.value.email;
-    let password = this.RegisterForm.value.password;
-    let confirmPassword = this.RegisterForm.value.confirmPassword;
-    if(
-      this.isNotEmpty(email) &&
-      this.isNotEmpty(password) && 
-      this.isNotEmpty(confirmPassword) &&
-      this.isAMatch(password, confirmPassword)
-    ){
-       this.firebasetsAuth.createAccountWith(
-            { 
-             email: email,
-             password: password,
-             onComplete: (uc) => {
-                this.loginSheet.dismiss();
-                // email = "";
-                // password= "";
-                // confirmPassword = "";
-             },
-             onFail: (err) => {
-                alert("Failed to create the account.");
-             }
-           }
-        );
-    }
+    this.authService.Register(this.RegisterForm)
   }
   onResetClick(){
-    let email = this.ResetForm.value.email;
-    if(this.isNotEmpty(email)) {
-      this.firebasetsAuth.sendPasswordResetEmail(
-        {
-        email: email,
-        onComplete: (err) => {
-          this.loginSheet.dismiss();
-          // alert(`Reset email sent to ${email}`);
-        }
-        });
-    }
+    this.authService.ResetPass(this.ResetForm)
   }
 
-  isNotEmpty(text: string){
-    return text != null && text.length > 0;
-  } 
-  isAMatch(text: string, comparedWith: string){
-    return text == comparedWith;
-  }
-  // onAddHobby(){
-  //   (<FormArray>this.LoginForm.get('hobbies')).push(new FormControl(null , Validators.required))
-    
-  // }
   onForgotPasswordClick(){
     this.state="ForgetPassword"
   }

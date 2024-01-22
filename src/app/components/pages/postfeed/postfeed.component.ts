@@ -5,6 +5,9 @@ import { NgxCroppedEvent } from 'ngx-photo-editor';
 
 import { FirebaseTSFirestore, Limit, OrderBy } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
 import { PostData } from '../../interfaces/post.interface';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { Subscription } from 'rxjs';
+import { PostServiceService } from 'src/app/services/PostService/post-service.service';
 
 
 
@@ -16,39 +19,22 @@ import { PostData } from '../../interfaces/post.interface';
 export class PostfeedComponent implements OnInit{
   firestore = new FirebaseTSFirestore();
   posts: PostData [] = [];
+  subscription: Subscription;
   currentImg:File
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog , private storageService:StorageService , private postService:PostServiceService) { }
   
   ngOnInit(): void {
-    this.getPosts();
+    this.storageService.fetchData();
+    this.subscription = this.postService.changedPosts.subscribe(
+      (posts:PostData[]) => {
+        this.posts = posts
+      }
+    )
   }
   openDialogWithData(imageData: any): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       data: { image: imageData },
     });
   }
-
-  getPosts(){
-    this.firestore.getCollection (
-      {
-        path: ["Posts"],
-        where: [
-          new OrderBy("timestamp", "desc"),
-          new Limit(10)
-        ],
-        onComplete: (result) => {
-          result.docs.forEach(
-              doc => {
-                let post = <PostData>doc.data();
-                this.posts.push(post);
-              }
-         );
-        },
-        onFail: err => {
-
-        }
-      }
-    );
-}
   
 }

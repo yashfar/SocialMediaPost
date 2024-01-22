@@ -20,6 +20,7 @@ import { AuthenticatorComponent } from './tools/authenticator/authenticator.comp
 import {MatRippleModule} from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 //Reactive form 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SocialMediaComponent } from './components/social-media/social-media.component';
@@ -31,7 +32,6 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import {NgxPhotoEditorModule} from "ngx-photo-editor";
 import { ImageEditorComponent } from './components/image-editor/image-editor.component';
 import { PostComponent } from './components/post/post.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +56,7 @@ import { PostComponent } from './components/post/post.component';
     MatRippleModule,
     MatDialogModule,
     MatIconModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     NgxPhotoEditorModule,
   ],

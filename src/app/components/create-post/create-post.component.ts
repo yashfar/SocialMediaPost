@@ -8,6 +8,8 @@ import { FirebaseTSFirestore } from 'firebasets/firebasetsFirestore/firebaseTSFi
 import { FirebaseTSStorage } from 'firebasets/firebasetsStorage/firebaseTSStorage';
 import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
 import { FirebaseTSApp } from 'firebasets/firebasetsApp/firebaseTSApp';
+import { StorageService } from 'src/app/services/storage/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -28,10 +30,16 @@ export class CreatePostComponent implements AfterViewInit , OnInit{
   @ViewChild('image', { static: false }) imageElement: ElementRef;
 
   CreatePostForm:FormGroup;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any ,  private ng2ImgMax: Ng2ImgMaxService , private dialog: MatDialogRef<CreatePostComponent>) {
-    this.receivedImage = data?.image.imageBase64;
-    this.formatedImage = data?.image.imageFile
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any ,  
+    private ng2ImgMax: Ng2ImgMaxService , 
+    private dialog: MatDialogRef<CreatePostComponent>,
+    private storageService:StorageService,
+    private router:Router,
+    ) {
+      this.receivedImage = data?.image.imageBase64;
+      this.formatedImage = data?.image.imageFile
+    }
   ngOnInit(): void {
     this.CreatePostForm = new FormGroup({
       'description':  new FormControl(),
@@ -50,34 +58,11 @@ export class CreatePostComponent implements AfterViewInit , OnInit{
         } else {
           this.uploadPost(comment);
         }
-
     }
 
     uploadImagePost(comment:string){
-      let postId = this.firestore.genDocId();
-        this.storage.upload({
-          uploadName: "upload Image Post",
-          path: ["Posts", postId, "image"],
-          data: {
-            data:this.formatedImage
-          },
-          onComplete: (downloadUrl) => {
-            this.firestore.create(
-              {
-                  path: ["Posts", postId],
-                  data: {
-                    comment: comment,
-                    creatorId: this.auth.getAuth().currentUser.uid,
-                    imageUrl: downloadUrl,
-                    timestamp: FirebaseTSApp.getFirestoreTimestamp()
-                  },
-                  onComplete: (docId) => {
-                     this.dialog.close();
-                  }
-              }
-            );
-          }
-      });
+      this.storageService.StorageData(comment , this.formatedImage)
+      this.dialog.close();
     }
 
     uploadPost(comment: string){

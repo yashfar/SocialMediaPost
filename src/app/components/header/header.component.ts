@@ -4,6 +4,7 @@ import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
 import { AuthenticationServiceService } from 'src/app/services/authenticator/authentication-service.service';
 import { AuthenticatorComponent } from 'src/app/tools/authenticator/authenticator.component';
 import { UserDocument } from '../interfaces/userDocument.interface';
+import { UserServiceService } from 'src/app/services/user/user-service.service';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,9 @@ import { UserDocument } from '../interfaces/userDocument.interface';
 export class HeaderComponent {
   @Input() logedIn:boolean; 
   @Input() userInfo:UserDocument ;
+
   firebasetsAuth = new FirebaseTSAuth();
-  constructor(private loginSheet: MatBottomSheet , private auth:AuthenticationServiceService ){
+  constructor(private loginSheet: MatBottomSheet , private auth:AuthenticationServiceService , private userService:UserServiceService ){
     this.firebasetsAuth.listenToSignInStateChanges(
       
       user=>{

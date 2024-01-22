@@ -9,7 +9,6 @@ import { PostData } from '../interfaces/post.interface';
 export class PostComponent implements OnInit{
   @Input() postData: PostData;
   ngOnInit(): void {
-    console.log(this.postData)
   }
 
 }
