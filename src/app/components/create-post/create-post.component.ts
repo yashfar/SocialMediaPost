@@ -55,7 +55,7 @@ export class CreatePostComponent implements AfterViewInit , OnInit{
         if(comment.length <= 0 ) return;
         if(this.receivedImage) {
           this.uploadImagePost(comment);
-        } else {
+        } else {   
           this.uploadPost(comment);
         }
     }
