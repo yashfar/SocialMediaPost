@@ -1,6 +1,6 @@
 
     <app-header [logedIn]="islogIn()" [userInfo]="userDocument" ></app-header>
-    <div class="pt-10">
+    <div class="sm:pt-10">
         <router-outlet></router-outlet>
     </div>
     <app-profile [show]="islogIn() && !userHasProfile"></app-profile>
