@@ -21,7 +21,7 @@ export class PostServiceService {
   }
 
   addNewPost(post:PostData){
-    this.posts.push(post);
+    this.posts.unshift(post);
     this.changedPosts.next(this.posts.slice())
   }
 

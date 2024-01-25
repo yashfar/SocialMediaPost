@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from '../../create-post/create-post.component';
 import { NgxCroppedEvent } from 'ngx-photo-editor';
@@ -16,12 +16,13 @@ import { PostServiceService } from 'src/app/services/PostService/post-service.se
   templateUrl: './postfeed.component.html',
   styleUrls: ['./postfeed.component.css']
 })
-export class PostfeedComponent implements OnInit{
+export class PostfeedComponent implements OnInit , OnDestroy{
   firestore = new FirebaseTSFirestore();
   posts: PostData [] = [];
   subscription: Subscription;
   currentImg:File
   constructor(private dialog: MatDialog , private storageService:StorageService , private postService:PostServiceService) { }
+
   
   ngOnInit(): void {
     this.storageService.fetchData();
@@ -36,5 +37,12 @@ export class PostfeedComponent implements OnInit{
       data: { image: imageData },
     });
   }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+  }
+
+  
   
 }

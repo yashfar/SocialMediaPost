@@ -51,7 +51,6 @@ export class StorageService {
                   timestamp: FirebaseTSApp.getFirestoreTimestamp()
                 },
                 onComplete: (docId) => {
-                    this.fetchData()
                 }
             }
           );
@@ -71,7 +70,7 @@ export class StorageService {
           result.docs.forEach(
               doc => {
                 let post = <PostData>doc.data();
-                this.posts.push(post);
+                this.posts.unshift(post);
                 this.postService.setPosts(this.posts)
               }
          );
