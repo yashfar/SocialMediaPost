@@ -13,7 +13,7 @@ export class PostServiceService {
 
   setPosts(data:PostData[]){
     this.posts = data;
-    this.posts.sort((a, b) => b.comment.length - a.comment.length)
+    // this.posts.sort((a, b) => b.comment.length - a.comment.length)
     this.changedPosts.next(this.posts.slice())
   }
   getposts(){
